@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    }
+    .container {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    }
+    #myParagraph {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    }#myList {
+    list-style: none;
+    padding: 0;
+    }
+    #myList li {
+    background: #eee;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 3px;
+    }
+    .box {
+    width: 100px;
+    height: 100px;
+    background: #3498db;
+    margin: 20px auto;
+    line-height: 100px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    position: relative;
+    }

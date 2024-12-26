@@ -1,0 +1,24 @@
+-- Create the database
+CREATE DATABASE test;
+
+-- Use the created database
+USE test;
+
+-- Create the students table without AUTO_INCREMENT on 'id'
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    marks INT
+);
+
+-- Insert 5 sample student records with manual ids
+INSERT INTO students (id, name, marks) VALUES
+(1, 'John Doe', 85),
+(2, 'Jane Smith', 92),
+(3, 'Alice Johnson', 78),
+(4, 'Bob Brown', 88),
+(5, 'Charlie Davis', 95);
+
+-- To insert new row
+
+INSERT INTO students (id, name, marks) VALUES (6, 'Shrivatsa', 78);

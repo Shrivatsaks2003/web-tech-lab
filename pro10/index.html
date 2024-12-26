@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Examples</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        #content {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+
+        button:hover {
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px #007bff;
+        }
+
+        #output {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #output.plain-ajax {
+            background-color: #f0f8ff;
+            border: 1px solid #b0c4de;
+        }
+
+        #output.jquery-ajax {
+            background-color: #f5fffa;
+            border: 1px solid #98fb98;
+        }
+
+        #output.jquery-json {
+            background-color: #fffaf0;
+            border: 1px solid #ffd700;
+        }
+
+        #output.parse-json {
+            background-color: #fff0f5;
+            border: 1px solid #ff69b4;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>AJAX Examples</h1>
+    <div id="content">
+        <button id="plain-ajax-btn">Load Text (Plain AJAX)</button>
+        <button id="jquery-ajax-btn">Load Text (jQuery AJAX)</button>
+        <button id="jquery-json-btn">Load JSON (jQuery getJSON)</button>
+        <button id="parse-json-btn">Load and Parse JSON (jQuery get)</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Function to show the output div with a specific class for styling
+        function showOutput(className) {
+            const output = document.getElementById('output');
+            output.className = className;
+            output.style.display = 'block';
+        }
+
+        // Plain AJAX Example (XMLHttpRequest)
+        document.getElementById('plain-ajax-btn').addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'textfile.txt', true);  // Open a GET request to 'textfile.txt'
+            xhr.onload = function () {
+                if (xhr.status === 200) {  // Check if the request was successful
+                    document.getElementById('output').innerText = xhr.responseText;  // Show the response text
+                }
+                showOutput('plain-ajax');  // Show the output area
+            };
+            xhr.send();  // Send the request to the server
+        });
+
+        // jQuery AJAX Example
+        $('#jquery-ajax-btn').on('click', function () {
+            $.ajax({
+                url: 'textfile.txt',  // The file to load
+                method: 'GET',  // The HTTP method (GET)
+                success: function (data) {  // Function to handle the response
+                    $('#output').text(data);  // Show the response text
+                }
+            }).always(function () {
+                showOutput('jquery-ajax');  // Show the output area after request
+            });
+        });
+
+        // jQuery getJSON Example
+        $('#jquery-json-btn').on('click', function () {
+            $.getJSON('data.json', function (data) {
+                $('#output').text(JSON.stringify(data, null, 2));  // Show formatted JSON data
+            }).always(function () {
+                showOutput('jquery-json');  // Show the output area after request
+            });
+        });
+
+        // jQuery get Example with Manual JSON Parsing
+        $('#parse-json-btn').on('click', function () {
+            $.get('data.json', function (data) {
+                let jsonData = (typeof data === 'string') ? JSON.parse(data) : data;  // Parse JSON if it's a string
+                $('#output').text(JSON.stringify(jsonData, null, 2));  // Show formatted JSON data
+            }).always(function () {
+                showOutput('parse-json');  // Show the output area after request
+            });
+        });
+    </script>
+</body>
+
+</html>
